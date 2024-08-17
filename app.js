@@ -4,9 +4,17 @@ let {createProxyMiddleware} = require('http-proxy-middleware');
 const {map} = require('./routeMapping/routeMapping.json');
 const {routes} = require('./config.json');
 const axios = require('axios');
+const http = require('http');
 require('dotenv').config();
 const port = process.env.port || 3000;
+let server = http.createServer((req, res) => {
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('Hello World!');
+  });
 
+  server.listen(3000, () => {
+    console.log('Server running at <http://localhost:3000/>');
+  });
 app.get('/_health', async (req, res) => {
     console.log(req.hostname)
     const userData = await axios.get('http://localhost:7000/user/test')
@@ -59,8 +67,6 @@ for(let routeMap of map){
 //   );
 
 
-app.listen(port,()=>{
-    console.log(`proxy listen to the port ${port}`)
-})
+
 
 
