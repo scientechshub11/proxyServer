@@ -1,0 +1,21 @@
+{
+    "routes": [
+      {
+        "route": "user",
+        "address": "http://localhost:7000"
+      },
+      {
+        "route": "product",
+        "address": "http://localhost:4000"
+      },
+      {
+        "route": "customer",
+        "address": "http://localhost:6000"
+      },
+      {
+        "route": "proxy",
+        "address": "http://localhost:3000"
+      }
+      
+    ]
+  }

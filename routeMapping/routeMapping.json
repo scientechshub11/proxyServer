@@ -1,0 +1,28 @@
+{
+    "map": [
+      {
+        "service": "user",
+        "route": [
+          "/user"
+        ]
+      },
+      {
+        "service": "product",
+        "route": [
+          "/product"
+        ]
+      },
+      {
+        "service": "customer",
+        "route": [
+          "/customer"
+        ]
+      },
+      {
+        "service": "proxy",
+        "route": [
+          "/"
+        ]
+      }
+    ]
+  }
