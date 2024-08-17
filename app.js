@@ -4,8 +4,8 @@ let {createProxyMiddleware} = require('http-proxy-middleware');
 const {map} = require('./routeMapping/routeMapping.json');
 const {routes} = require('./config.json');
 const axios = require('axios');
-
-const port = 3000;
+require('dotenv').config();
+const port = process.env.port || 3000;
 
 app.get('/_health', async (req, res) => {
     console.log(req.hostname)
