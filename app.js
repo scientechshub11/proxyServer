@@ -4,9 +4,9 @@ let {createProxyMiddleware} = require('http-proxy-middleware');
 const {map} = require('./routeMapping/routeMapping.json');
 const {routes} = require('./config.json');
 const axios = require('axios');
-const cors = require('cors');
+// const cors = require('cors');
 const port = 3000;
-app.use(cors());
+// app.use(cors());
 
 app.get('/_health', async (req, res) => {
     console.log(req.hostname)
