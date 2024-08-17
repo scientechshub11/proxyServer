@@ -21,6 +21,13 @@ app.get('/_health', async (req, res) => {
     });
 })
 
+app.get('/test-proxy', async (req, res) => {
+    
+    res.status(200).json({
+        "msg": "proxy working fine"
+    });
+})
+
 
 for(let routeMap of map){
     const service = routeMap.service;
