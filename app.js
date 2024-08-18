@@ -1,5 +1,6 @@
 const express  = require('express');
 const app =express();
+const router = require('express').Router()
 let {createProxyMiddleware} = require('http-proxy-middleware');
 const {map} = require('./routeMapping/routeMapping.json');
 const {routes} = require('./config.json');
@@ -7,43 +8,17 @@ const axios = require('axios');
 const http = require('http');
 require('dotenv').config();
 const port = process.env.port || 3000;
-let server = http.createServer((req, res) => {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Hello World!');
-  });
+const server = require('./server');
 
-  server.listen(3000, () => {
-    console.log('Server running at <http://localhost:3000/>');
-  });
-app.get('/_health', async (req, res) => {
-    console.log(req.hostname)
-    const userData = await axios.get('http://localhost:7000/user/test')
-    const productData = await axios.get('http://localhost:4000/product/test')
-    const customerData = await axios.get('http://localhost:6000/customer/test')
-    res.status(200).json({
-        user: userData.data,
-        product: productData.data,
-        customer: customerData.data,
-        createProxyMiddleware : true
-    });
-})
-
-app.get('/test-proxy', async (req, res) => {
-    
-    res.status(200).json({
-        "msg": "proxy working fine"
-    });
-})
-
-
-for(let routeMap of map){
-    const service = routeMap.service;
-    const route = routes.filter(val=>val.route == service);
-    const endPoint = routeMap.route
-    for(let currentRoute of endPoint){
-        app.use(currentRoute, createProxyMiddleware({target: route[0].address, changeOrigin: true}))
-    }
+try {
+    // creating express server
+    const myserver = http.createServer(server)
+    myserver.listen(port)
+    console.log('Server running..... Port -', port)
+} catch (error) {
+    console.error(error)
 }
+
 
 // proxy and change the base path from "/api" to "/secret"
 // http://127.0.0.1:3000/api/foo/bar -> http://www.example.org/secret/foo/bar
